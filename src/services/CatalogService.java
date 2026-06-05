@@ -14,21 +14,24 @@ public class CatalogService {
     public void adaugaStudent(Student student) {
         studenti.add(student);
         AuditService.getInstance().scrieInAudit("adaugaStudent");
-        DatabaseRepository.getInstance().createStudent(student);
+        // Apelam serviciul dedicat pentru Student
+        StudentRepository.getInstance().create(student);
         System.out.println("S-a adaugat studentul: " + student.getNume());
     }
 
     public void adaugaProfesor(Profesor profesor) {
         profesori.add(profesor);
         AuditService.getInstance().scrieInAudit("adaugaProfesor");
-        DatabaseRepository.getInstance().createProfesor(profesor);
+        // Apelam serviciul dedicat pentru Profesor
+        ProfesorRepository.getInstance().create(profesor);
         System.out.println("S-a adaugat profesorul: " + profesor.getNume());
     }
 
     public void adaugaMaterie(Materie materie) {
         materii.add(materie);
         AuditService.getInstance().scrieInAudit("adaugaMaterie");
-        DatabaseRepository.getInstance().createMaterie(materie);
+        // Apelam serviciul dedicat pentru Materie
+        MaterieRepository.getInstance().create(materie);
         System.out.println("S-a adaugat materia: " + materie.getDenumire());
     }
 
@@ -102,7 +105,8 @@ public class CatalogService {
         }
         if (studentDeSters != null) {
             studenti.remove(studentDeSters);
-            DatabaseRepository.getInstance().deleteStudent(idStudent);
+            // Folosim clasa specifica de repository pentru stergere
+            StudentRepository.getInstance().delete(idStudent);
             System.out.println("Studentul cu ID " + idStudent + " a fost sters.");
         }
     }
